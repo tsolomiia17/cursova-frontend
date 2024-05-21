@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta id="viewport" name="viewport" content="initial-scale=1.0, user-scalable=no, minimal-ui">
+    <script>
+        var viewportScale = 1 /  window.devicePixelRatio;
+        document.getElementById('viewport').setAttribute('content', 'user-scalable=no, initial-scale=' + viewportScale + ", minimal-ui");
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#262323">
+    <link rel="stylesheet" href="style.css">
+    <!--iconend-->
+    <title>Tic-Tac-Toe Infinity</title>
+    <!--[if IE 9]>
+    <style>
+        .spinner {
+            display: none;
+        }
+    </style>
+    <![endif]-->
+    <style>
+        *, body{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        html, body{
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100% !important;
+            top: 0;/* For ipad on IOS7*/
+            left: 0;
+            background-color: #eee;
+        }
+
+        body {
+            text-align: center;
+            position: fixed;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+        }
+        #loading p{
+            text-align: center;
+            color: #7b609f;
+            font-family: "Trebuchet MS", "Arial";
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+        }
+        #loading img {
+            width: 12rem;
+        }
+
+        #intro {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            color: rgb(0, 0, 120);
+            font-family: "Trebuchet MS";
+            padding: 3%;
+            line-height: 1.5;
+            display: none;
+            opacity: 0;
+        }
+
+        #overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: none;
+            background-color: rgba(200, 200, 200, 0.8);
+        }
+
+        #screen1 {
+            display: block;
+            opacity: 1;
+        }
+
+        #screen2 {
+            display: block;
+            opacity: 0;
+        }
+
+        #intro > div > * {
+            margin-bottom: 3%;
+        }
+
+        #intro .logo {
+            width: 200px;
+            max-width: 30%;
+            margin-bottom: 1%;
+        }
+
+        #intro .title {
+            font-size: 1.7rem;
+            font-weight: bold;
+            letter-spacing: 0.07rem;
+        }
+
+
+        #intro {
+            font-size: 1.3rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4)
+        }
+
+        #intro .highlight {
+            text-shadow: 0 0 3px rgba(0, 0, 155, 1), 2px 2px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        #play {
+            position: fixed;
+            bottom: 5vmin;
+            right: 5vmin;
+            width: 350px;
+            max-width: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<img src="/img/bg.png" style="display: none" alt="">
+<div id="loading">
+    <p>LOADING</p>
+    <p><img src="/img/loading_bar.gif"  alt=""/></p>
+</div>
+
+<!--scripts-->
+<script src='./GameView.js'></script>
+<script>
+    (function () {
+        function init() {
+            new GameView();
+        };
+
+        if ("cordova" in window) {
+            document.addEventListener("deviceready", init, false);
+        } else {
+            window.onload = init;
+        }
+    }());
+</script>
+<div id="overlay"></div>
+<div id="dialogWrapper">
+    <div id="confirm" class="dialog">
+        <p class="message"></p>
+        <div class="dialog-button button-left button-ok">OK</div>
+        <div class="dialog-button button-right button-cancel">Cancel</div>
+    </div>
+</div>
+<div id="fps" style="display: none; position: absolute; z-index: 2; background-color: red"></div>
+<div id="debug" style="display: none; position: absolute; top: 100px; z-index: 2; background-color: red"></div>
+
+<div id="intro">
+    <div id="screen1">
+        <img class="logo" src="/img/logo.png" alt=""/>
+        <div class="title highlight">Tic-Tac-Toe Infinity</div>
+        <div class="subtitle">5 in a row Tic-Tac-Toe played on an infinite board</div>
+    </div>
+    <div id="screen2">
+        <div class="explanation">Get an unbroken row of 5 stones
+            <div class="horiz">Horizontally,</div>
+            <div class="vert">Vertically,</div>
+            <div class="diag">Or diagonally.</div>
+        </div>
+    </div>
+    <img src="/img/play.png" id="play" alt=""/>
+</div>
+<div id="root"></div>
+</body>
+</html>
+
+
+
+
