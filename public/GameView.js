@@ -17561,7 +17561,7 @@ function PairMatch(gameView) {
 
 PairMatch.prototype = Object.create(Match.prototype);
 PairMatch.prototype.constructor = PairMatch;
-const url = 'http://localhost:8080/'
+const url = 'https://cursova-backend.onrender.com/'
 
 async function checkMove(cell, board) {
     try {
